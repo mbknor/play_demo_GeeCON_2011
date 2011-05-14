@@ -1,0 +1,29 @@
+#{extends 'main.html'/}
+
+
+<script>
+    var socket = new WebSocket('@@{Application.OurWS.join(username)}')
+    socket.onmessage = function(e){
+        $('#messages').append('<li>'+e.data+'</li>')
+    }
+
+    $(document).ready(function(){
+        $('#btn').click(function(e){
+            e.preventDefault();
+            m = $("#msg").val()
+            socket.send(m);
+            $("#msg").val('')
+        })
+    })
+</script>
+
+<div>
+    Chat messages:<br>
+    <ul id="messages">
+
+    </ul>
+
+
+    <input type="text" id="msg">
+    <input type="submit" id="btn" value="Send new message">
+</div>
